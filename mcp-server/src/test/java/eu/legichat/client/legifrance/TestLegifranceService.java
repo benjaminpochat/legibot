@@ -5,6 +5,7 @@ import io.quarkus.logging.Log;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -16,7 +17,8 @@ public class TestLegifranceService {
     @Test
     public void getArticle_should_return_the_article_text() {
         // when
-        String articleText = legifranceService.getArticle("JORFARTI000043673261");
+//        String articleText = legifranceService.getArticle("JORFARTI000043673261");
+        String articleText = legifranceService.getArticle("L.162-22-6");
 
         // then
         Assertions.assertEquals(

@@ -1,5 +1,6 @@
 package eu.legichat;
 
+import eu.legichat.chatbot.ChatbotService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -10,12 +11,12 @@ import jakarta.ws.rs.core.MediaType;
 public class LegiChatResource {
 
     @Inject
-    LegifranceAIService europeanParliamentAIService;
+    ChatbotService legifranceAIService;
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String submitQuestion(String question) {
-        return europeanParliamentAIService.writeAPoem(question, 10);
+        return legifranceAIService.answer(question);
     }
 
 }
