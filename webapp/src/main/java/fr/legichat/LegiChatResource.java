@@ -1,6 +1,6 @@
-package eu.legichat;
+package fr.legichat;
 
-import eu.legichat.chatbot.ChatbotService;
+import fr.legichat.chatbot.ChatbotService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;

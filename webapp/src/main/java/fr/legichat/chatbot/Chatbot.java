@@ -1,4 +1,4 @@
-package eu.legichat.chatbot;
+package fr.legichat.chatbot;
 
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;

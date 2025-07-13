@@ -1,4 +1,4 @@
-package eu.legichat.chatbot;
+package fr.legichat.chatbot;
 
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;

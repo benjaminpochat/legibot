@@ -1,4 +1,4 @@
-package eu.legichat.chatbot;
+package fr.legichat.chatbot;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

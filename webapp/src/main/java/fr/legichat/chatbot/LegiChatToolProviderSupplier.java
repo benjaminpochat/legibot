@@ -1,4 +1,4 @@
-package eu.legichat.chatbot;
+package fr.legichat.chatbot;
 
 import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.mcp.client.DefaultMcpClient;
