@@ -5,6 +5,8 @@ import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
 import jakarta.inject.Inject;
 
+import java.util.List;
+
 
 public class LegifranceMCPServer {
 
@@ -16,5 +18,15 @@ public class LegifranceMCPServer {
             @ToolArg(description = "identifiant d'un article de loi")
             String id) {
         return legifranceService.getArticle(id);
+    }
+
+    @Tool(description = """
+            Recherche les textes de lois, d'arrêtés, de décrets, et d'ordonnance en vigueur en France à la date du jour.
+            La recherche retourne les textes contenant tous les mots ou expressions passés en argument.
+        """)
+    List<String> searchInLODA(
+        @ToolArg(description = "un liste de mots ou d'expressions recherchées")
+        String... keywords) {
+        return legifranceService.searchInLODA(keywords);
     }
 }

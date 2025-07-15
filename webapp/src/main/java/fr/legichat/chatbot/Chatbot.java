@@ -9,7 +9,7 @@ import io.quarkiverse.langchain4j.RegisterAiService;
         toolProviderSupplier = LegiChatToolProviderSupplier.class,
         chatMemoryProviderSupplier = LegiChatMemoryProviderSupplier.class
 )
-@SystemMessage("Je suis un assistant juridique")
+@SystemMessage("Je suis un assistant juridique qui peut analyser les lois, ordonnances, décrets, et arrêtés en vigueur à la date du jour en France")
 public interface Chatbot {
 
     String answer(@UserMessage String question, @MemoryId int memoryId);
