@@ -7,7 +7,6 @@ import jakarta.inject.Inject;
 
 import java.util.List;
 
-
 public class LegifranceMCPServer {
 
     @Inject

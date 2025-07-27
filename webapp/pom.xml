@@ -50,6 +50,14 @@
       <artifactId>quarkus-langchain4j-mcp</artifactId>
       <version>1.0.2</version>
     </dependency>
+
+    <!-- dépendance utilisée par langchain4j (devrait plutôt être tirée par langchain4j via transitivité : anomalie ? -->
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp-sse</artifactId>
+      <version>4.12.0</version>
+    </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>

@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header>
-      Euro Chat - un chatbot pour savoir ce qui se passe Parlement Européen
+      Legi Chat - un chatbot pour explorer le contenu de LegiFrance.fr
       </header>
       <div id="conversation">
       </div>

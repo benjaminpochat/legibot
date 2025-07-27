@@ -72,10 +72,52 @@ public class LegifranceClientService {
    * @return
    */
   public List<String> searchInLODA(String... keyWords) {
+    Log.debug("Start searchInLODA for keywords %s".formatted(Arrays.stream(keyWords).collect(Collectors.joining(", ", "\"", "\""))));
 
     SearchRequestDTO request = new SearchRequestDTO();
     request.setFond(SearchRequestDTO.FondEnum.LODA_DATE);
+    request.setRecherche(getRechercheSpecifiqueDTO(keyWords));
+
+    SearchResponseDTO response = searchControllerApi.searchUsingPOST(request);
+    List<SearchResult> results = response.getResults();
+    var texts = results.stream()
+        .map(result -> {
+          try {
+            Thread.sleep(500);
+          } catch (InterruptedException ex) {
+            return null;
+          }
+          return result.getTitles().get(0);
+        })
+        .map(SearchTitle::getTitle)
+        .toList();
+    Log.debug("Stop searchInLODA for keywords %s".formatted(Arrays.stream(keyWords).collect(Collectors.joining(", ", "\"", "\""))));
+    return texts;
+  }
+
+  private static RechercheSpecifiqueDTO getRechercheSpecifiqueDTO(String[] keyWords) {
     RechercheSpecifiqueDTO rechercheSpecifiqueDTO = new RechercheSpecifiqueDTO();
+    addKeyWordsToRechercheSpecifiqueDTO(keyWords, rechercheSpecifiqueDTO);
+    addCurrentDateFilterToRechercheSpecifiqueDTO(rechercheSpecifiqueDTO);
+    addStatusToRechercheSpecifiqueDTO(rechercheSpecifiqueDTO);
+    return rechercheSpecifiqueDTO;
+  }
+
+  private static void addStatusToRechercheSpecifiqueDTO(RechercheSpecifiqueDTO rechercheSpecifiqueDTO) {
+    FiltreDTO filtreStatutTexteEnVigueur = new FiltreDTO();
+    filtreStatutTexteEnVigueur.setFacette("TEXT_LEGAL_STATUS");
+    filtreStatutTexteEnVigueur.addValeursItem("VIGUEUR");
+    rechercheSpecifiqueDTO.addFiltresItem(filtreStatutTexteEnVigueur);
+  }
+
+  private static void addCurrentDateFilterToRechercheSpecifiqueDTO(RechercheSpecifiqueDTO rechercheSpecifiqueDTO) {
+    FiltreDTO filtreDateDujour = new FiltreDTO();
+    filtreDateDujour.setFacette("DATE_VERSION");
+    filtreDateDujour.setSingleDate(OffsetDateTime.now());
+    rechercheSpecifiqueDTO.addFiltresItem(filtreDateDujour);
+  }
+
+  private static void addKeyWordsToRechercheSpecifiqueDTO(String[] keyWords, RechercheSpecifiqueDTO rechercheSpecifiqueDTO) {
     ChampDTO champDTO = new ChampDTO();
     champDTO.setOperateur(ChampDTO.OperateurEnum.ET);
     champDTO.setTypeChamp(ChampDTO.TypeChampEnum.ALL);
@@ -88,26 +130,6 @@ public class LegifranceClientService {
       return critereDTO;
     }).forEach(champDTO::addCriteresItem);
     rechercheSpecifiqueDTO.addChampsItem(champDTO);
-
-    FiltreDTO filtreDateDujour = new FiltreDTO();
-    filtreDateDujour.setFacette("DATE_VERSION");
-    filtreDateDujour.setSingleDate(OffsetDateTime.now());
-    rechercheSpecifiqueDTO.addFiltresItem(filtreDateDujour);
-
-    FiltreDTO filtreStatutTexteEnVigueur = new FiltreDTO();
-    filtreStatutTexteEnVigueur.setFacette("TEXT_LEGAL_STATUS");
-    filtreStatutTexteEnVigueur.addValeursItem("VIGUEUR");
-
-    rechercheSpecifiqueDTO.addFiltresItem(filtreStatutTexteEnVigueur);
-    request.setRecherche(rechercheSpecifiqueDTO);
-    SearchResponseDTO response = searchControllerApi.searchUsingPOST(request);
-    List<SearchResult> results = response.getResults();
-    var texts = results.stream()
-        .map(result -> result.getTitles().get(0))
-        .map(SearchTitle::getCid)
-        .map(cid -> getLEGIText(cid))
-        .toList();
-    return texts;
   }
 
 }

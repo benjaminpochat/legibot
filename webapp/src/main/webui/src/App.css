@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 1rem;
 }
 
 .App-logo {
@@ -26,6 +27,29 @@
 
 .App-link {
   color: #61dafb;
+}
+
+header {
+    margin: 1rem;
+    font-size: x-large;
+}
+
+#conversation {
+    text-align: left;
+}
+
+#conversation pre {
+    white-space: break-spaces;
+}
+
+#nextQuestion {
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#nextQuestion input {
+    width: 100%;
 }
 
 @keyframes App-logo-spin {
